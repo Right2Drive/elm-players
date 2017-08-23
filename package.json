@@ -1,0 +1,31 @@
+{
+  "name": "package-name",
+  "version": "1.0.0",
+  "description": "Description of application",
+  "author": "Author",
+  "license": "MIT",
+  "scripts": {
+    "start": "node_modules/.bin/webpack-dev-server --env=dev",
+    "clean": "rimraf dist/*",
+    "build": "npm run build:dev",
+    "build:prod": "npm run build:core -- --env=prod",
+    "build:dev": "npm run build:core -- --env=dev",
+    "build:core": "node_modules/.bin/webpack",
+    "rebuild": "npm run clean && npm run build",
+    "rebuild:prod": "npm run clean && npm run build:prod"
+  },
+  "devDependencies": {
+    "css-loader": "0.26.1",
+    "elm-webpack-loader": "4.3.1",
+    "extract-text-webpack-plugin": "3.0.0",
+    "file-loader": "0.10.0",
+    "html-webpack-plugin": "2.30.1",
+    "less": "2.7.2",
+    "less-loader": "4.0.5",
+    "style-loader": "0.13.1",
+    "url-loader": "0.5.7",
+    "webpack": "3.5.5",
+    "webpack-dev-server": "2.7.1",
+    "webpack-merge": "^4.1.0"
+  }
+}

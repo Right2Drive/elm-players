@@ -2,10 +2,11 @@
 import "./style/main.less"
 
 // Import any vendor stylesheets here
-// --> HERE <--
+import "ace-css/css/ace.css";
+import "font-awesome/css/font-awesome.css";
 
 // Require main
-const Elm = require("./Main.elm");
+const Elm = require("./elm/Main.elm");
 
 window.addEventListener("load", function() {
     // Fetch the Elm div element that will serve as the container for elm

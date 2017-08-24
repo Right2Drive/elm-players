@@ -20,7 +20,8 @@ module.exports = function() {
 
         resolve: {
             modules: [
-                "node_modules"
+                "node_modules",
+                path.resolve(path.join("src", "client"))
             ],
 
             extensions: [ ".js", ".elm", ".less", ".css", ".config.js" ]

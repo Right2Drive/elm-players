@@ -1,4 +1,4 @@
-module Routing exposing (matchers, parseLocation)
+module Routing exposing (matchers, parseLocation, playerPath, playersPath)
 
 import Navigation exposing (Location)
 import Models exposing (PlayerId, Route(..))
@@ -20,3 +20,13 @@ parseLocation location =
         
         Nothing ->
             NotFoundRoute
+
+
+playersPath : String
+playersPath =
+    "#players"
+
+
+playerPath : String -> String
+playerPath id =
+    "#players/" ++ id

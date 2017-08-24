@@ -3,7 +3,8 @@ module Models exposing (..)
 import RemoteData exposing (WebData)
 
 type alias Model =
-    { players : WebData (List Player)
+    { players : Players
+    , route : Route
     }
 
 type alias Player =
@@ -20,7 +21,11 @@ type Route
 
 type alias PlayerId = String
 
-initialModel : Model
-initialModel =
+type alias Players = WebData (List Player)
+
+
+initialModel : Route -> Model
+initialModel route =
     { players = RemoteData.Loading
+    , route = route
     }

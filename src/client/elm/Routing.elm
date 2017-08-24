@@ -1,4 +1,4 @@
-module Routing exposing (..)
+module Routing exposing (matchers, parseLocation)
 
 import Navigation exposing (Location)
 import Models exposing (PlayerId, Route(..))

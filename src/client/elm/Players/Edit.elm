@@ -1,4 +1,4 @@
-module Player.Edit exposing (view)
+module Players.Edit exposing (view)
 
 import Html exposing (..)
 import Html.Attributes exposing (class, value, href)

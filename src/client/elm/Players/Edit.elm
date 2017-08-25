@@ -3,10 +3,15 @@ module Players.Edit exposing (view)
 import Html exposing (..)
 import Html.Attributes exposing (class, value, href)
 import Html.Events exposing (onClick)
-import Msgs exposing (Msg(ChangeLevel))
+import Msgs exposing (Msg(ChangeLevel, EditName))
 import Models exposing (Player)
 import Routing exposing (playersPath)
 
+
+
+type LevelButton
+    = Increase
+    | Decrease
 
 view : Player -> Html Msg
 view player =
@@ -16,6 +21,7 @@ view player =
         ]
 
 
+-- Create the top nav-bar
 nav : Player -> Html Msg
 nav player =
     div [ class "clearfix mb2 white bg-black p1" ]
@@ -26,8 +32,16 @@ nav player =
 form : Player -> Html Msg
 form player =
     div [ class "m3" ]
-        [ h1 [] [ text player.name ]
+        [ formTitle player
         , formLevel player
+        ]
+
+
+formTitle : Player -> Html Msg
+formTitle player =
+    div [ class "elm-container" ]
+        [ h1 [] [ text player.name ]
+        , btnCore "fa-pencil edit-player" EditName
         ]
 
 
@@ -42,10 +56,6 @@ formLevel player =
             ]
         ]
 
-type LevelButton
-    = Increase
-    | Decrease
-
 
 btnLevel : LevelButton -> Player -> Html Msg
 btnLevel buttonType player =
@@ -53,16 +63,16 @@ btnLevel buttonType player =
         Increase ->
             player
                 |> ChangeLevel 1 -- Generate message
-                |> btnLevelCore "fa-plus-circle" -- Generate button
+                |> btnCore "fa-plus-circle" -- Generate button
 
         Decrease ->
             player
                 |> ChangeLevel -1 -- Generate message
-                |> btnLevelCore "fa-minus-circle" -- Generate button
+                |> btnCore "fa-minus-circle" -- Generate button
     
 
-btnLevelCore : String -> Msg -> Html Msg
-btnLevelCore className messageType =
+btnCore : String -> Msg -> Html Msg
+btnCore className messageType =
     a [ class "btn ml1 h1" ]
         [ i 
             [ class ("fa " ++ className)

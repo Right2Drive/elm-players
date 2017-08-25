@@ -10,3 +10,5 @@ type Msg
     | OnLocationChange Location
     | ChangeLevel Int Player
     | OnPlayerSave (Result Error Player)
+    | EditName
+    | ChangeName String Player

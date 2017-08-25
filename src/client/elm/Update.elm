@@ -30,6 +30,16 @@ update msg model =
 
         OnPlayerSave (Err err) ->
             ( model, Cmd.none )
+        
+        EditName ->
+            ( model, Cmd.none )
+
+        ChangeName name player ->
+            let
+                updatedPlayer =
+                    { player | name = name }
+            in
+                ( model, savePlayerCmd updatedPlayer )
 
 
 updatePlayer : Model -> Player -> Model

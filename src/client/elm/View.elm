@@ -2,9 +2,9 @@ module View exposing (..)
 
 import Html exposing (..)
 import Msgs exposing (Msg)
-import Models exposing (Model, PlayerId, Route(PlayersRoute, PlayerRoute, NotFoundRoute))
-import Players.List
-import Players.Edit
+import Model exposing (Model, PlayerId, Route(PlayersRoute, PlayerRoute, NotFoundRoute))
+import Pages.Edit.View
+import Pages.List.View
 import RemoteData exposing (RemoteData(NotAsked, Loading, Failure, Success))
 
 view : Model -> Html Msg

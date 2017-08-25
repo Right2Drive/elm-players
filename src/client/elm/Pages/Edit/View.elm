@@ -1,12 +1,12 @@
-module Players.Edit exposing (view)
+module Pages.Edit.View exposing (view)
 
 import Html exposing (..)
 import Html.Attributes exposing (class, value, href)
 import Html.Events exposing (onClick)
-import Msgs exposing (Msg(ChangeLevel, EditName))
-import Models exposing (Player)
-import Routing exposing (playersPath)
 
+import Msgs as CoreMsgs exposing (Msg(..))
+import Global.Players.Model exposing (Player)
+import Routing exposing (playersPath)
 
 
 type LevelButton
@@ -41,7 +41,7 @@ formTitle : Player -> Html Msg
 formTitle player =
     div [ class "elm-container" ]
         [ h1 [] [ text player.name ]
-        , btnCore "fa-pencil edit-player" EditName
+        , btnCore "fa-pencil edit-player" EditMsg
         ]
 
 

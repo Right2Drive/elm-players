@@ -1,11 +1,11 @@
-module Commands exposing (..)
+module Global.Players.Commands exposing (..)
 
 import Http
 import Json.Decode as Decode
 import Json.Encode as Encode
 import Json.Decode.Pipeline exposing (decode, required)
-import Msgs exposing (Msg)
-import Models exposing (PlayerId, Player)
+import Global.Players.Msgs as Msgs exposing (Msg)
+import Global.Players.Model exposing (PlayerId, Player)
 import RemoteData
 
 

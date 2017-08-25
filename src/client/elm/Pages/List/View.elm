@@ -1,10 +1,11 @@
-module Players.List exposing (..)
+module Pages.List.View exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (class, href)
-import Msgs exposing (Msg)
-import Models exposing (Player, PlayerId)
 import RemoteData exposing (WebData)
+
+import Msgs exposing (Msg)
+import Global.Players.Model exposing (Player, PlayerId)
 import Routing exposing (playerPath)
 
 type TdContent

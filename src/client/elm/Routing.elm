@@ -1,7 +1,7 @@
 module Routing exposing (matchers, parseLocation, playerPath, playersPath)
 
 import Navigation exposing (Location)
-import Models exposing (PlayerId, Route(..))
+import Model exposing (Route(..))
 import UrlParser exposing (..)
 
 matchers : Parser (Route -> a) a

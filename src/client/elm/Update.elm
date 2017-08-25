@@ -1,60 +1,34 @@
 module Update exposing (..)
 
 import Msgs exposing (Msg(..))
-import Models exposing (Model, Player)
+import Model exposing (Model)
+import Global.Players.Update as PlayersUpdate exposing (update)
+import Pages.Edit.Update as EditUpdate exposing (update)
 import Routing exposing (parseLocation)
-import Commands exposing (savePlayerCmd)
-import RemoteData
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        OnFetchPlayers response ->
-            ( { model | players = response }, Cmd.none )
-        
         OnLocationChange location ->
             let
                 newRoute = parseLocation location
             in
                 ( { model | route = newRoute }, Cmd.none)
 
-        ChangeLevel howMuch player ->
+        PlayersMsg playersMsg ->
             let
-                updatedPlayer =
-                    { player | level = player.level + howMuch}
+                ( playersModel, playersCmd ) =
+                    PlayersUpdate.update playersMsg model.playersModel -- TODO: Refactor
             in
-                ( model, savePlayerCmd updatedPlayer )
+                ( { model | playersModel = playersModel }
+                , Cmd.map PlayersMsg playersCmd
+                )
         
-        OnPlayerSave (Ok player) ->
-            ( updatePlayer model player, Cmd.none )
-
-        OnPlayerSave (Err err) ->
-            ( model, Cmd.none )
-        
-        EditName ->
-            ( model, Cmd.none )
-
-        ChangeName name player ->
+        EditMsg editMsg ->
             let
-                updatedPlayer =
-                    { player | name = name }
+                ( editModel, playersCmd ) =
+                    EditUpdate.update editMsg model.editModel
             in
-                ( model, savePlayerCmd updatedPlayer )
-
-
-updatePlayer : Model -> Player -> Model
-updatePlayer model updatedPlayer =
-    let
-        pick currentPlayer =
-            if updatedPlayer.id == currentPlayer.id then
-                updatedPlayer
-            else
-                currentPlayer
-        
-        updatePlayerList players =
-            List.map pick players
-
-        updatedPlayers =
-            RemoteData.map updatePlayerList model.players
-    in
-        { model | players = updatedPlayers }
+                ( { model | editModel = editModel }
+                , Cmd.map EditMsg playersCmd
+                )

@@ -1,12 +1,11 @@
-module Msgs exposing (..)
+module Msgs exposing (Msg(..))
 
-import Models exposing (Player)
-import RemoteData exposing (WebData)
 import Navigation exposing (Location)
-import Http exposing (Error)
+
+import Data.Players.Msgs exposing (PlayersMsg(..))
+import Pages.Edit.Msgs exposing (EditMsg(..))
 
 type Msg
-    = OnFetchPlayers (WebData (List Player))
-    | OnLocationChange Location
-    | ChangeLevel Int Player
-    | OnPlayerSave (Result Error Player)
+    = OnLocationChange Location
+    | PlayersMsg PlayersMsg
+    | EditMsg EditMsg

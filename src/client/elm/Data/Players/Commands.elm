@@ -1,19 +1,28 @@
-module Commands exposing (..)
+module Data.Players.Commands exposing (..)
 
 import Http
 import Json.Decode as Decode
 import Json.Encode as Encode
+import RemoteData exposing (WebData)
+
+import Msgs exposing (Msg(..))
 import Json.Decode.Pipeline exposing (decode, required)
-import Msgs exposing (Msg)
-import Models exposing (PlayerId, Player)
-import RemoteData
+import Data.Players.Msgs exposing (PlayersMsg(..))
+import Data.Players.Model exposing (PlayerId, Player)
 
 
 fetchPlayers : Cmd Msg
 fetchPlayers =
     Http.get fetchPlayersUrl playersDecoder
         |> RemoteData.sendRequest
-        |> Cmd.map Msgs.OnFetchPlayers
+        |> Cmd.map convertMsg
+
+
+convertMsg : (WebData (List Player)) -> Msg
+convertMsg data =
+    data
+        |> OnFetchPlayers
+        |> PlayersMsg
 
 
 savePlayerUrl : String -> String
@@ -34,10 +43,10 @@ savePlayerRequest player =
         }
 
 
-savePlayerCmd : Player -> Cmd Msg
+savePlayerCmd : Player -> Cmd PlayersMsg
 savePlayerCmd player =
     savePlayerRequest player
-        |> Http.send Msgs.OnPlayerSave
+        |> Http.send OnPlayerSave
 
 
 fetchPlayersUrl : String

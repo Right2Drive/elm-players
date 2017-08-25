@@ -2,9 +2,10 @@ module View exposing (..)
 
 import Html exposing (..)
 import Msgs exposing (Msg)
-import Models exposing (Model, PlayerId, Route(PlayersRoute, PlayerRoute, NotFoundRoute))
-import Players.List
-import Players.Edit
+import Model exposing (Model, Route(PlayersRoute, PlayerRoute, NotFoundRoute))
+import Data.Players.Model exposing (PlayerId)
+import Pages.Edit.View exposing (editView)
+import Pages.List.View exposing (listView)
 import RemoteData exposing (RemoteData(NotAsked, Loading, Failure, Success))
 
 view : Model -> Html Msg
@@ -17,7 +18,7 @@ page : Model -> Html Msg
 page model =
     case model.route of
         PlayersRoute ->
-            Players.List.view model.players
+            listView model.playersModel.players
 
         PlayerRoute id ->
             playerEditPage model id
@@ -28,7 +29,7 @@ page model =
 
 playerEditPage : Model -> PlayerId -> Html Msg
 playerEditPage model playerId =
-    case model.players of
+    case model.playersModel.players of
         NotAsked ->
             text ""
 
@@ -47,7 +48,7 @@ playerEditPage model playerId =
             in
                 case maybePlayer of
                     Just player ->
-                        Players.Edit.view player
+                        editView player
 
                     Nothing ->
                         notFoundView

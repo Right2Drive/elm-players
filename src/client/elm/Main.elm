@@ -1,13 +1,14 @@
 module Main exposing (..)
 
-import Msgs exposing (Msg)
-import Models exposing (Model, initialModel)
+import Navigation exposing (Location)
+
+import Msgs exposing (Msg(..))
+import Model exposing (Model, initialModel)
 import Update exposing (update)
 import View exposing (view)
 import Subscriptions exposing (subscriptions)
-import Commands exposing (fetchPlayers)
 import Routing exposing (parseLocation)
-import Navigation exposing (Location)
+import Data.Players.Commands exposing (fetchPlayers)
 
 
 init : Location -> ( Model, Cmd Msg )
@@ -16,7 +17,9 @@ init location =
         currentRoute =
             parseLocation location
     in
-        ( initialModel currentRoute, fetchPlayers )
+        ( initialModel currentRoute
+        , fetchPlayers
+        )
 
 
 -- MAIN

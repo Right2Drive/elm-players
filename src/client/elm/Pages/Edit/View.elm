@@ -3,11 +3,14 @@ module Pages.Edit.View exposing (editView)
 import Html exposing (..)
 import Html.Attributes exposing (class, value, href)
 import Html.Events exposing (onClick)
+import RemoteData exposing (RemoteData(NotAsked, Loading, Failure, Success))
 
+import Model exposing (Model)
 import Msgs exposing (Msg(..))
 import Data.Players.Msgs exposing (PlayersMsg(..))
-import Data.Players.Model exposing (Player)
+import Data.Players.Model exposing (Player, PlayerId)
 import Pages.Edit.Msgs exposing (EditMsg(..))
+import Pages.NotFound.View exposing (notFoundView)
 import Routing exposing (playersPath)
 
 
@@ -15,13 +18,39 @@ type LevelButton
     = Increase
     | Decrease
 
-editView : Player -> Html Msg
-editView player =
+editView : Model -> PlayerId -> Html Msg
+editView model id =
+    case model.playersModel.players of
+        NotAsked ->
+            text ""
+
+        Loading ->
+            text "Loading ..."
+
+        Failure err ->
+            text (toString err)
+        
+        Success players ->
+            let
+                maybePlayer =
+                    players
+                        |> List.filter(\player -> player.id == id)
+                        |> List.head
+            in
+                case maybePlayer of
+                    Just player ->
+                        core player
+
+                    Nothing ->
+                        notFoundView
+
+
+core : Player -> Html Msg
+core player =
     div []
         [ nav player
         , form player
         ]
-
 
 -- Create the top nav-bar
 nav : Player -> Html Msg

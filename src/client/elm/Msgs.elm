@@ -2,10 +2,10 @@ module Msgs exposing (Msg(..))
 
 import Navigation exposing (Location)
 
-import Global.Players.Msgs as PlayersMsgs exposing (Msg(..))
-import Pages.Edit.Msgs as EditMsgs exposing (Msg(..))
+import Global.Players.Msgs exposing (PlayersMsg(..))
+import Pages.Edit.Msgs exposing (EditMsg(..))
 
 type Msg
     = OnLocationChange Location
-    | PlayersMsg PlayersMsgs.Msg
-    | EditMsg EditMsgs.Msg
+    | PlayersMsg PlayersMsg
+    | EditMsg EditMsg

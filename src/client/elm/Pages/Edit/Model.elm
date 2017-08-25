@@ -1,11 +1,11 @@
 module Pages.Edit.Model exposing (..)
 
-type alias Model =
+type alias EditModel =
     { editName : Bool
     }
 
 
-init : Model
-init =
+initEdit : EditModel
+initEdit =
     { editName = False
     }

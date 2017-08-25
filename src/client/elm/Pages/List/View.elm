@@ -13,8 +13,8 @@ type TdContent
     | TextContent String
     | NumContent Int
 
-view : WebData (List Player) -> Html Msg
-view players =
+listView : WebData (List Player) -> Html Msg
+listView players =
     div []
         [ nav
         , maybeList players

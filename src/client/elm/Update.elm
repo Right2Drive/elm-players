@@ -2,8 +2,8 @@ module Update exposing (..)
 
 import Msgs exposing (Msg(..))
 import Model exposing (Model)
-import Global.Players.Update as PlayersUpdate exposing (update)
-import Pages.Edit.Update as EditUpdate exposing (update)
+import Global.Players.Update exposing (updatePlayers)
+import Pages.Edit.Update exposing (updateEdit)
 import Routing exposing (parseLocation)
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -18,7 +18,7 @@ update msg model =
         PlayersMsg playersMsg ->
             let
                 ( playersModel, playersCmd ) =
-                    PlayersUpdate.update playersMsg model.playersModel -- TODO: Refactor
+                    updatePlayers playersMsg model.playersModel -- TODO: Refactor
             in
                 ( { model | playersModel = playersModel }
                 , Cmd.map PlayersMsg playersCmd
@@ -27,7 +27,7 @@ update msg model =
         EditMsg editMsg ->
             let
                 ( editModel, playersCmd ) =
-                    EditUpdate.update editMsg model.editModel
+                    updateEdit editMsg model.editModel
             in
                 ( { model | editModel = editModel }
                 , Cmd.map EditMsg playersCmd

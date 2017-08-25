@@ -1,10 +1,10 @@
-module Pages.Edit.Update exposing (..)
+module Pages.Edit.Update exposing (updateEdit)
 
-import Pages.Edit.Model exposing (Model)
-import Pages.Edit.Msgs exposing (Msg(..))
+import Pages.Edit.Model exposing (EditModel)
+import Pages.Edit.Msgs exposing (EditMsg(..))
 
-update : Msg -> Model -> ( Model, Cmd Msg)
-update msg model =
+updateEdit : EditMsg -> EditModel -> ( EditModel, Cmd EditMsg)
+updateEdit msg model =
     case msg of
         EditName ->
             ( model, Cmd.none )

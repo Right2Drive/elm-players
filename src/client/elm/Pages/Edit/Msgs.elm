@@ -1,4 +1,4 @@
-module Pages.Edit.Msgs exposing (..)
+module Pages.Edit.Msgs exposing (EditMsg(..))
 
-type Msg
+type EditMsg
     = EditName

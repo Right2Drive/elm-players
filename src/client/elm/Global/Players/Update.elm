@@ -1,12 +1,12 @@
 module Global.Players.Update exposing (..)
 
-import Global.Players.Msgs exposing (Msg(..))
-import Global.Players.Model exposing (Model, Player)
+import Global.Players.Msgs exposing (PlayersMsg(..))
+import Global.Players.Model exposing (PlayersModel, Player)
 import Global.Players.Commands exposing (savePlayerCmd)
 import RemoteData
 
-update : Msg -> Model -> ( Model, Cmd Msg )
-update msg model =
+updatePlayers : PlayersMsg -> PlayersModel -> ( PlayersModel, Cmd PlayersMsg )
+updatePlayers msg model =
     case msg of
         OnFetchPlayers response ->
             ( { model | players = response }, Cmd.none )
@@ -32,7 +32,7 @@ update msg model =
                 ( model, savePlayerCmd updatedPlayer )
 
 
-updatePlayer : Model -> Player -> Model
+updatePlayer : PlayersModel -> Player -> PlayersModel
 updatePlayer model updatedPlayer =
     let
         pick currentPlayer =

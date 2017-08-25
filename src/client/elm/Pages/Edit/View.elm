@@ -1,11 +1,13 @@
-module Pages.Edit.View exposing (view)
+module Pages.Edit.View exposing (editView)
 
 import Html exposing (..)
 import Html.Attributes exposing (class, value, href)
 import Html.Events exposing (onClick)
 
-import Msgs as CoreMsgs exposing (Msg(..))
+import Msgs exposing (Msg(..))
+import Global.Players.Msgs exposing (PlayersMsg(..))
 import Global.Players.Model exposing (Player)
+import Pages.Edit.Msgs exposing (EditMsg(..))
 import Routing exposing (playersPath)
 
 
@@ -13,8 +15,8 @@ type LevelButton
     = Increase
     | Decrease
 
-view : Player -> Html Msg
-view player =
+editView : Player -> Html Msg
+editView player =
     div []
         [ nav player
         , form player
@@ -41,7 +43,7 @@ formTitle : Player -> Html Msg
 formTitle player =
     div [ class "elm-container" ]
         [ h1 [] [ text player.name ]
-        , btnCore "fa-pencil edit-player" EditMsg
+        , btnCore "fa-pencil edit-player" (EditMsg EditName)
         ]
 
 
@@ -63,11 +65,13 @@ btnLevel buttonType player =
         Increase ->
             player
                 |> ChangeLevel 1 -- Generate message
+                |> PlayersMsg -- Convert to PlayersMsg
                 |> btnCore "fa-plus-circle" -- Generate button
 
         Decrease ->
             player
                 |> ChangeLevel -1 -- Generate message
+                |> PlayersMsg -- Convert to PlayersMsg
                 |> btnCore "fa-minus-circle" -- Generate button
     
 

@@ -5,7 +5,7 @@ import Html.Attributes exposing (class, href)
 import RemoteData exposing (WebData)
 
 import Msgs exposing (Msg)
-import Global.Players.Model exposing (Player, PlayerId)
+import Data.Players.Model exposing (Player, PlayerId)
 import Routing exposing (playerPath)
 
 type TdContent

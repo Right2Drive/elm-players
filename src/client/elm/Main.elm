@@ -8,7 +8,7 @@ import Update exposing (update)
 import View exposing (view)
 import Subscriptions exposing (subscriptions)
 import Routing exposing (parseLocation)
-import Global.Players.Commands exposing (fetchPlayers)
+import Data.Players.Commands exposing (fetchPlayers)
 
 
 init : Location -> ( Model, Cmd Msg )

@@ -5,8 +5,8 @@ import Html.Attributes exposing (class, value, href)
 import Html.Events exposing (onClick)
 
 import Msgs exposing (Msg(..))
-import Global.Players.Msgs exposing (PlayersMsg(..))
-import Global.Players.Model exposing (Player)
+import Data.Players.Msgs exposing (PlayersMsg(..))
+import Data.Players.Model exposing (Player)
 import Pages.Edit.Msgs exposing (EditMsg(..))
 import Routing exposing (playersPath)
 

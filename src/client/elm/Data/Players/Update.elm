@@ -1,8 +1,8 @@
-module Global.Players.Update exposing (..)
+module Data.Players.Update exposing (..)
 
-import Global.Players.Msgs exposing (PlayersMsg(..))
-import Global.Players.Model exposing (PlayersModel, Player)
-import Global.Players.Commands exposing (savePlayerCmd)
+import Data.Players.Msgs exposing (PlayersMsg(..))
+import Data.Players.Model exposing (PlayersModel, Player)
+import Data.Players.Commands exposing (savePlayerCmd)
 import RemoteData
 
 updatePlayers : PlayersMsg -> PlayersModel -> ( PlayersModel, Cmd PlayersMsg )

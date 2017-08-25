@@ -1,4 +1,4 @@
-module Global.Players.Commands exposing (..)
+module Data.Players.Commands exposing (..)
 
 import Http
 import Json.Decode as Decode
@@ -7,8 +7,8 @@ import RemoteData exposing (WebData)
 
 import Msgs exposing (Msg(..))
 import Json.Decode.Pipeline exposing (decode, required)
-import Global.Players.Msgs exposing (PlayersMsg(..))
-import Global.Players.Model exposing (PlayerId, Player)
+import Data.Players.Msgs exposing (PlayersMsg(..))
+import Data.Players.Model exposing (PlayerId, Player)
 
 
 fetchPlayers : Cmd Msg

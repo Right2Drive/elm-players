@@ -1,4 +1,4 @@
-module Global.Players.Model exposing (..)
+module Data.Players.Model exposing (..)
 
 import RemoteData exposing (RemoteData(Loading), WebData)
 

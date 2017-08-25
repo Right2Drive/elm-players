@@ -2,7 +2,7 @@ module Update exposing (..)
 
 import Msgs exposing (Msg(..))
 import Model exposing (Model)
-import Global.Players.Update exposing (updatePlayers)
+import Data.Players.Update exposing (updatePlayers)
 import Pages.Edit.Update exposing (updateEdit)
 import Routing exposing (parseLocation)
 

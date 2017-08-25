@@ -1,8 +1,8 @@
-module Global.Players.Msgs exposing (PlayersMsg(..))
+module Data.Players.Msgs exposing (PlayersMsg(..))
 
 import RemoteData exposing (WebData)
 import Http exposing (Error)
-import Global.Players.Model exposing (Player)
+import Data.Players.Model exposing (Player)
 
 type PlayersMsg
     = OnFetchPlayers (WebData (List Player))

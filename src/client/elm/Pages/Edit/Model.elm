@@ -1,11 +1,16 @@
 module Pages.Edit.Model exposing (..)
 
 type alias EditModel =
-    { editName : Bool
+    { playerNameField : PlayerNameField
     }
+
+
+type PlayerNameField
+    = EditName
+    | DisplayName
 
 
 initEdit : EditModel
 initEdit =
-    { editName = False
+    { playerNameField = DisplayName
     }

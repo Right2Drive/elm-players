@@ -1,16 +1,14 @@
 module Pages.Edit.View exposing (editView)
 
 import Html exposing (..)
-import Html.Attributes exposing (class, value, href)
+import Html.Attributes exposing (class, value, href, id)
 import Html.Events exposing (onClick)
-import RemoteData exposing (RemoteData(NotAsked, Loading, Failure, Success))
 
-import Model exposing (Model)
 import Msgs exposing (Msg(..))
 import Data.Players.Msgs exposing (PlayersMsg(..))
 import Data.Players.Model exposing (Player, PlayerId)
 import Pages.Edit.Msgs exposing (EditMsg(..))
-import Pages.NotFound.View exposing (notFoundView)
+import Pages.Edit.Model exposing (PlayerNameField(..))
 import Routing exposing (playersPath)
 
 
@@ -18,39 +16,14 @@ type LevelButton
     = Increase
     | Decrease
 
-editView : Model -> PlayerId -> Html Msg
-editView model id =
-    case model.playersModel.players of
-        NotAsked ->
-            text ""
 
-        Loading ->
-            text "Loading ..."
-
-        Failure err ->
-            text (toString err)
-        
-        Success players ->
-            let
-                maybePlayer =
-                    players
-                        |> List.filter(\player -> player.id == id)
-                        |> List.head
-            in
-                case maybePlayer of
-                    Just player ->
-                        core player
-
-                    Nothing ->
-                        notFoundView
-
-
-core : Player -> Html Msg
-core player =
+editView : Player -> PlayerNameField -> Html Msg
+editView player field =
     div []
         [ nav player
-        , form player
+        , form player field
         ]
+
 
 -- Create the top nav-bar
 nav : Player -> Html Msg
@@ -60,20 +33,29 @@ nav player =
         ]
 
 
-form : Player -> Html Msg
-form player =
+form : Player -> PlayerNameField -> Html Msg
+form player field =
     div [ class "m3" ]
-        [ formTitle player
+        [ formTitle player field
         , formLevel player
         ]
 
 
-formTitle : Player -> Html Msg
-formTitle player =
+formTitle : Player -> PlayerNameField -> Html Msg
+formTitle player field =
     div [ class "elm-container" ]
-        [ h1 [] [ text player.name ]
-        , btnCore "fa-pencil edit-player" (EditMsg EditName)
+        [ formHeader player field
+        , btnCore "fa-pencil edit-player" (EditMsg EditPlayerName)
         ]
+
+formHeader : Player -> PlayerNameField -> Html Msg
+formHeader player field =
+    case field of
+        EditName ->
+            input [ value player.name, id "edit-page-player-input" ] [] -- TODO helper method for id
+
+        DisplayName ->
+            h1 [] [ text player.name ]
 
 
 formLevel : Player -> Html Msg
@@ -102,14 +84,14 @@ btnLevel buttonType player =
                 |> ChangeLevel -1 -- Generate message
                 |> PlayersMsg -- Convert to PlayersMsg
                 |> btnCore "fa-minus-circle" -- Generate button
-    
+
 
 btnCore : String -> Msg -> Html Msg
 btnCore className messageType =
     a [ class "btn ml1 h1" ]
-        [ i 
+        [ i
             [ class ("fa " ++ className)
-            , onClick messageType ] 
+            , onClick messageType ]
             []
         ]
 
@@ -123,4 +105,3 @@ listButton =
         [ i [ class "fa fa-chevron-left mr1" ] []
         , text "List"
         ]
-

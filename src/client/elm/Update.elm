@@ -15,6 +15,9 @@ update msg model =
             in
                 ( { model | route = newRoute }, Cmd.none)
 
+        NoOp ->
+            ( model, Cmd.none )
+
         PlayersMsg playersMsg ->
             let
                 ( playersModel, playersCmd ) =
@@ -23,12 +26,9 @@ update msg model =
                 ( { model | playersModel = playersModel }
                 , Cmd.map PlayersMsg playersCmd
                 )
-        
+
         EditMsg editMsg ->
-            let
-                ( editModel, playersCmd ) =
-                    updateEdit editMsg model.editModel
-            in
-                ( { model | editModel = editModel }
-                , Cmd.map EditMsg playersCmd
-                )
+            updateEdit editMsg model
+
+        DomTask result ->
+            ( model, Cmd.none )

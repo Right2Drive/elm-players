@@ -10,7 +10,8 @@ import Json.Decode.Pipeline exposing (decode, required)
 import Data.Players.Msgs exposing (PlayersMsg(..))
 import Data.Players.Model exposing (PlayerId, Player)
 
-
+{-| Fetch all the players from the server.
+-}
 fetchPlayers : Cmd Msg
 fetchPlayers =
     Http.get fetchPlayersUrl playersDecoder
@@ -64,7 +65,7 @@ playerEncoder player =
             ]
     in
         Encode.object attributes
-        
+
 
 
 playersDecoder : Decode.Decoder (List Player)

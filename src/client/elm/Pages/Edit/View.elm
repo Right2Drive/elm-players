@@ -1,8 +1,8 @@
 module Pages.Edit.View exposing (editView)
 
 import Html exposing (..)
-import Html.Attributes exposing (class, value, href, id)
-import Html.Events exposing (onClick)
+import Html.Attributes exposing (..)
+import Html.Events exposing (onClick, onInput)
 
 import Msgs exposing (Msg(..))
 import Data.Players.Msgs exposing (PlayersMsg(..))
@@ -48,15 +48,36 @@ formTitle player field =
         , btnCore "fa-pencil edit-player" (EditMsg EditPlayerName)
         ]
 
+
 formHeader : Player -> PlayerNameField -> Html Msg
 formHeader player field =
-    case field of
-        EditName ->
-            input [ value player.name, id "edit-page-player-input" ] [] -- TODO helper method for id
+    let
+        ( className, readOnly ) =
+            case field of
+                EditName ->
+                    ( "edit", False )
 
-        DisplayName ->
-            h1 [] [ text player.name ]
+                DisplayName ->
+                    ( "display", True )
+    in
+        input
+            [ value player.name
+            , class className
+            , id playerInputId
+            , readonly readOnly
+            , onInput
+                <| \n -> n
+                    |> ChangePlayerName
+                    |> EditMsg
+            ]
+            []
 
+
+
+
+playerInputId : String
+playerInputId =
+    "edit-page-player-input"
 
 formLevel : Player -> Html Msg
 formLevel player =

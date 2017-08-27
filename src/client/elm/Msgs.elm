@@ -11,4 +11,4 @@ type Msg
     | NoOp
     | PlayersMsg PlayersMsg
     | EditMsg EditMsg
-    | DomTask (Result Error ())
+    | DomTask (Result Error ()) -- TODO: Learn more about this

@@ -44,10 +44,18 @@ savePlayerRequest player =
         }
 
 
-savePlayerCmd : Player -> Cmd PlayersMsg
+savePlayerCmd : Player -> Cmd Msg
 savePlayerCmd player =
-    savePlayerRequest player
-        |> Http.send OnPlayerSave
+    player
+        |> savePlayerRequest
+        |> Http.send onPlayerSaveMsg
+
+
+onPlayerSaveMsg : Result Http.Error Player -> Msg
+onPlayerSaveMsg result =
+    result
+        |> OnPlayerSave
+        |> PlayersMsg
 
 
 fetchPlayersUrl : String

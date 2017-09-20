@@ -8,4 +8,4 @@ type PlayersMsg
     = OnFetchPlayers (WebData (List Player))
     | ChangeLevel Int Player
     | OnPlayerSave (Result Error Player)
-    | ChangeName String Player
+    | ChangeName Player String

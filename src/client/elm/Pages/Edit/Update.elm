@@ -21,5 +21,9 @@ update msg model editModel =
             in
                 ( { model | editModel = newEditModel }, focus "edit-page-player-input" )
 
-        ChangePlayerName value ->
-            ( model, Cmd.none )
+        DisplayPlayerName ->
+            let
+                newEditModel =
+                    { editModel | playerNameField = DisplayName }
+            in
+                ( { model | editModel = newEditModel }, Cmd.none )

@@ -19,13 +19,7 @@ update msg model =
             ( model, Cmd.none )
 
         PlayersMsg playersMsg ->
-            let
-                ( playersModel, playersCmd ) =
-                    updatePlayers playersMsg model.playersModel -- TODO: Refactor
-            in
-                ( { model | playersModel = playersModel }
-                , Cmd.map PlayersMsg playersCmd
-                )
+            updatePlayers playersMsg model
 
         EditMsg editMsg ->
             updateEdit editMsg model

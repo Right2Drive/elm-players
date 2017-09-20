@@ -5,11 +5,10 @@ import RemoteData
 import Msgs exposing (Msg)
 import Model exposing (Model)
 import Data.Players.Msgs exposing (PlayersMsg(..))
-import Data.Players.Model exposing (PlayersModel, Player)
+import Data.Players.Model exposing (PlayersModel, Player, Players)
 import Data.Players.Commands exposing (savePlayerCmd)
 
-
-updatePlayers : PlayersMsg -> Model
+updatePlayers : PlayersMsg -> Model -> ( Model, Cmd Msg )
 updatePlayers msg model =
     update msg model model.playersModel
 
@@ -18,7 +17,7 @@ update : PlayersMsg -> Model -> PlayersModel -> ( Model, Cmd Msg )
 update msg model playersModel =
     case msg of
         OnFetchPlayers response ->
-            ( { model | players = response }, Cmd.none )
+            ( setPlayers model response, Cmd.none )
 
         ChangeLevel howMuch player ->
             let
@@ -33,7 +32,7 @@ update msg model playersModel =
         OnPlayerSave (Err err) ->
             ( model, Cmd.none )
 
-        ChangeName name player ->
+        ChangeName player name ->
             let
                 updatedPlayer =
                     { player | name = name }
@@ -41,7 +40,7 @@ update msg model playersModel =
                 ( model, savePlayerCmd updatedPlayer )
 
 
-updatePlayer : PlayersModel -> Player -> PlayersModel
+updatePlayer : Model -> Player -> Model
 updatePlayer model updatedPlayer =
     let
         pick currentPlayer =
@@ -54,6 +53,21 @@ updatePlayer model updatedPlayer =
             List.map pick players
 
         updatedPlayers =
-            RemoteData.map updatePlayerList model.players
+            RemoteData.map updatePlayerList model.playersModel.players
     in
-        { model | players = updatedPlayers }
+        setPlayers model updatedPlayers
+
+
+setPlayers : Model -> Players -> Model
+setPlayers model players =
+    let
+        playersModel =
+            model.playersModel
+
+        newPlayersModel =
+            { playersModel | players = players }
+
+    in
+        { model | playersModel = newPlayersModel }
+
+

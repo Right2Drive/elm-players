@@ -2,7 +2,7 @@ module Pages.Edit.View exposing (editView)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Html.Events exposing (onClick, onInput)
+import Html.Events exposing (onClick, onInput, onBlur)
 
 import Msgs exposing (Msg(..))
 import Data.Players.Msgs exposing (PlayersMsg(..))
@@ -19,7 +19,9 @@ type LevelButton
 
 editView : Player -> PlayerNameField -> Html Msg
 editView player field =
-    div []
+    div [ class "page"
+        , id "edit-page"
+        ]
         [ nav player
         , form player field
         ]
@@ -67,11 +69,13 @@ formHeader player field =
             , readonly readOnly
             , onInput
                 <| \n -> n
-                    |> ChangePlayerName
-                    |> EditMsg
+                    |> ChangeName player
+                    |> PlayersMsg
+            , DisplayPlayerName
+                |> EditMsg
+                |> onBlur
             ]
             []
-
 
 
 

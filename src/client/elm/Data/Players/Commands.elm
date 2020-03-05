@@ -45,8 +45,17 @@ savePlayerRequest player =
 
 savePlayerCmd : Player -> Cmd PlayersMsg
 savePlayerCmd player =
-    savePlayerRequest player
-        |> Http.send OnPlayerSave
+    if validatePlayerName player.name then
+        Cmd.none
+
+    else
+        savePlayerRequest player
+            |> Http.send OnPlayerSave
+
+
+validatePlayerName : String -> Bool
+validatePlayerName playerName =
+    not (String.isEmpty playerName || String.length playerName > 32)
 
 
 fetchPlayersUrl : String
@@ -64,7 +73,7 @@ playerEncoder player =
             ]
     in
         Encode.object attributes
-        
+
 
 
 playersDecoder : Decode.Decoder (List Player)

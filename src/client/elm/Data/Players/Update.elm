@@ -2,7 +2,7 @@ module Data.Players.Update exposing (..)
 
 import Data.Players.Msgs exposing (PlayersMsg(..))
 import Data.Players.Model exposing (PlayersModel, Player)
-import Data.Players.Commands exposing (savePlayerCmd)
+import Data.Players.Commands exposing (savePlayerCmd, validatePlayerName)
 import RemoteData
 
 updatePlayers : PlayersMsg -> PlayersModel -> ( PlayersModel, Cmd PlayersMsg )
@@ -28,8 +28,15 @@ updatePlayers msg model =
             let
                 updatedPlayer =
                     { player | name = name }
+
+                cmd =
+                    if validatePlayerName name then
+                        Cmd.none
+
+                    else
+                        savePlayerCmd updatedPlayer
             in
-                ( model, savePlayerCmd updatedPlayer )
+            ( model, cmd )
 
 
 updatePlayer : PlayersModel -> Player -> PlayersModel
